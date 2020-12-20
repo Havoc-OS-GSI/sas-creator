@@ -14,10 +14,14 @@ targetArch=64
 [ "$1" == 32 ] && targetArch=32
 
 [ -z "$ANDROID_BUILD_TOP" ] && ANDROID_BUILD_TOP=/build2/AOSP-11.0/
-if [ "$targetArch" == 32 ];then
-    simg2img $ANDROID_BUILD_TOP/out/target/product/phhgsi_arm_ab/system.img s.img
+if [ -f "$2" ]; then
+    "$origin"/simg2img "$2" "$origin"/s.img
 else
-    simg2img $ANDROID_BUILD_TOP/out/target/product/phhgsi_arm64_ab/system.img s.img
+    if [ "$targetArch" == 32 ];then
+        simg2img $ANDROID_BUILD_TOP/out/target/product/phhgsi_arm_ab/system.img s.img
+    else
+        simg2img $ANDROID_BUILD_TOP/out/target/product/phhgsi_arm64_ab/system.img s.img
+    fi
 fi
 rm -Rf tmp
 mkdir -p d tmp
