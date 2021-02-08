@@ -13,7 +13,7 @@ origin="$(dirname "$origin")"
 targetArch=64
 [ "$1" == 32 ] && targetArch=32
 
-[ -z "$ANDROID_BUILD_TOP" ] && ANDROID_BUILD_TOP=/build2/AOSP-11.0/
+[ -z "$ANDROID_BUILD_TOP" ] && ANDROID_BUILD_TOP=/home/eugw/havoc
 if [ -f "$2" ]; then
     "$origin"/simg2img "$2" "$origin"/s.img
 else
@@ -26,7 +26,7 @@ fi
 rm -Rf tmp
 mkdir -p d tmp
 e2fsck -y -f s.img
-resize2fs s.img 3500M
+resize2fs s.img 4000M
 e2fsck -E unshare_blocks -y -f s.img
 mount -o loop,rw s.img d
 (
